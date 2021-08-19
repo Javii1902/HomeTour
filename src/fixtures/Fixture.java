@@ -4,11 +4,7 @@ public abstract class Fixture {
 	String name;
 	String shortDescription;
 	String longDescription;
-	
-	public Fixture() {
-		
-	}
-	
+
 	public Fixture(String name, String shortDescription, String longDescription) {
 		this.name = name;
 		this.shortDescription = shortDescription;
