@@ -6,53 +6,59 @@ public class RoomManager {
 	Room startingRoom;
 	Room[] rooms;
 	
-	
-	
 	public void init() {
 		
 		//creating the rooms
-		Room foyer = new Room("The Foyer", "a small foyer",	"The small entryway of a modest house."
-				+ " A kitchen is open to the west, where stove and refrigerator "
-				+ "can be seen. \n"
-				+ "To the east there is a doorway. /n"
-				+ "To the north is a open room, where you can see a piano.");
+		Room foyer = new Room("The Foyer", "a small foyer",	"The small entryway of a "
+				+ "modest house. \n"
+				+ "to the west is the kitchen"
+				+ "To the east is the bedroom. \n"
+				+ "To the north is the music room.");
 
-		Room kitchen = new Room("The kitchen", "A small kitchen","You see a refrigerator and "
-				+ "a stove."
-				+ "A living room is connected"
-				+ " to the north where you see a couch. /n"
-				+ "To the south there there is a doorway. /n"
-				+ "To the east there is the foyer /n");
+		Room kitchen = new Room("The kitchen", "A small kitchen","You see a "
+				+ "refrigerator and a stove. \n"
+				+ "To the north is the living room"
+				+ "To the south is the garage. \n"
+				+ "To the east is the foyer \n");
 
-		Room openRoom = new Room("The open room","An open Room","You see a piano. /n"
-				+ "To the west you see the living room. /n"
+		Room musicRoom = new Room("The music room","A room for music","You see a piano "
+				+ "and a guitar. \n"
+				+ "To the west is the living room. \n"
 				+ "To the south is the foyer.");
 
-		Room livingRoom = new Room("The living room","A room for living","You see a couch. /n"
-				+ "To the east you see the open room. /n"
+		Room livingRoom = new Room("The living room","A room for living","You see a couch "
+				+ "and a tv. \n"
+				+ "To the east is the music room. \n"
 				+ "To the south is the Kitchen.");
-//		Room garage = new Room("The Garage","A place to store a vehicle ","You see a red car. /n"
-//				+ "To the north is the kitchen. /n");
-//		Room bedRoom = new Room("The bedroom","A standard bedroom", "You see a bed. /n"
-//				+ "To the west is the foyer. /n"
-//				+ "To the north is the restroom.");
-//		Room bathRoom = new Room("The bathroom","A standard bathroom","You see a tub and toilet. /n"
-//				+ "To the west you see the open room. /n"
-//				+ "To the south is the bedroom.");	
-		//adding the rooms to array
+		Room garage = new Room("The Garage","A place to store a vehicle ","You see a "
+				+ "car and a truck. \n"
+				+ "To the north is the kitchen. \n");
+		Room bedRoom = new Room("The bedroom","A standard bedroom", "You see a bed "
+				+ "and a mirror. \n"
+				+ "To the west is the foyer. \n");
 		
-		//						  0       1        2         3
-		this.rooms = new Room[]{foyer, kitchen, openRoom, livingRoom};
+		//adding rooms to the array
+		//						  0       1        2         3 
+		this.rooms = new Room[]{foyer, kitchen, musicRoom, livingRoom,
+		//		   4       5 
+				garage, bedRoom};
 		//setting the starting room to be the foyer
 		this.startingRoom = foyer;	
-		
-		
-		
-		foyer.setExits(rooms[2], null, rooms[1],null);
-		kitchen.setExits(rooms[3], rooms[0], null, null);
-		openRoom.setExits(null, null, rooms[3], rooms[0]);
-		livingRoom.setExits(null, rooms[2], null, rooms[1]);
-				
+	
+		//set the exits
+		foyer.setExits(musicRoom, bedRoom, kitchen, null);
+		kitchen.setExits(livingRoom, foyer, null, garage);
+		musicRoom.setExits(null, null, livingRoom, foyer);
+		livingRoom.setExits(null, musicRoom, null, kitchen);
+		garage.setExits(kitchen, null, null, null);
+		bedRoom.setExits(null, null, foyer, null);
+	
+		//set the items
+		kitchen.setItems("fridge", "stove");
+		musicRoom.setItems("piano", "guitar");
+		livingRoom.setItems("couch", "tv");
+		garage.setItems("car","truck");
+		bedRoom.setItems("bed", "dresser");
 	}
 	
 }

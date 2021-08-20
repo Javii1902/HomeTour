@@ -18,12 +18,15 @@ public class Main {
 			printRoom(player);
 			String[] playerInput = collectInput(input);
 			parse(playerInput, player);
+			System.out.println();
 		}
-
+		input.close();
 	}
 
 	private static void printRoom(Player player) {
 		System.out.println("You are located in the " + player.currentRoom.getName());
+		System.out.println(player.currentRoom.getShortDescription());
+		System.out.println(player.currentRoom.getLongDescription());
 		System.out.println("Please select a place to navigate to. ");
 	}
 
@@ -31,7 +34,7 @@ public class Main {
 		return input.nextLine().split(" ");
 	}
 
-	private static void parse(String[] command, Player player) {
+	private static void parse(String[] command, Player player) throws IllegalArgumentException {
 		String action = command[0];
 		
 		switch(action) {
@@ -40,13 +43,18 @@ public class Main {
 				String direction = command[1];
 				player.currentRoom = player.currentRoom.getExit(direction,player.currentRoom);
 				break;
+			case "interact":
+				String interact = command[1];
+				System.out.println(player.currentRoom.interactItem(interact));
+				break;
 			//exit the game
 			case "quit":
 				System.out.println("You quit the game");
 				continuePlaying = false;
 				break;
 			default:
-				throw new IllegalArgumentException("Invalid Action");
+				System.out.println("Input not recognized");
+				System.out.println("Please try again");
 		}
 	}
 }
